@@ -1,0 +1,54 @@
+[[package]]
+name = "dill"
+version = "0.3.3"
+description = "serialize all of python"
+category = "main"
+optional = false
+python-versions = ">=2.6, !=3.0.*"
+
+[package.extras]
+graph = ["objgraph (>=1.7.2)"]
+
+[[package]]
+name = "pfun"
+version = "0.11.5"
+description = ""
+category = "main"
+optional = false
+python-versions = ">=3.7,<4.0"
+
+[package.dependencies]
+dill = ">=0.3.2,<0.4.0"
+typing-extensions = ">=3.7,<4.0"
+
+[package.extras]
+http = ["aiohttp[speedups] (>=3.6.2,<4.0.0)"]
+sql = ["asyncpg (>=0.20.1,<0.21.0)"]
+
+[[package]]
+name = "typing-extensions"
+version = "3.7.4.3"
+description = "Backported and Experimental Type Hints for Python 3.5+"
+category = "main"
+optional = false
+python-versions = "*"
+
+[metadata]
+lock-version = "1.1"
+python-versions = "^3.8"
+content-hash = "beef4900067dbbe12595fa20a89bb750a2aad4e604093ff05ce0ccb8562390b9"
+
+[metadata.files]
+dill = [
+    {file = "dill-0.3.3-py2.py3-none-any.whl", hash = "sha256:78370261be6ea49037ace8c17e0b7dd06d0393af6513cc23f9b222d9367ce389"},
+    {file = "dill-0.3.3.zip", hash = "sha256:efb7f6cb65dba7087c1e111bb5390291ba3616741f96840bfc75792a1a9b5ded"},
+]
+pfun = [
+    {file = "pfun-0.11.5-py3-none-any.whl", hash = "sha256:2002fe96bcb0e8566fe0f61645075b8f8d19563254a09dddbae39ceeb2bbdbe8"},
+    {file = "pfun-0.11.5.tar.gz", hash = "sha256:1b426e169651b453812f59d8bfb0f61b716fbf128ece1db07a0fe72c0e0fcfcd"},
+]
+typing-extensions = [
+    {file = "typing_extensions-3.7.4.3-py2-none-any.whl", hash = "sha256:dafc7639cde7f1b6e1acc0f457842a83e722ccca8eef5270af2d74792619a89f"},
+    {file = "typing_extensions-3.7.4.3-py3-none-any.whl", hash = "sha256:7cb407020f00f7bfc3cb3e7881628838e69d8f3fcab2f64742a5e76b2f841918"},
+    {file = "typing_extensions-3.7.4.3.tar.gz", hash = "sha256:99d4073b617d30288f569d3f13d2bd7548c3a7e4c8de87db09a9d29bb3a4a60c"},
+]
