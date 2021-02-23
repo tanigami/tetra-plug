@@ -1,7 +1,4 @@
-from typing import Any, Callable, Sequence, Tuple, Optional, Union
-from tetra.plug.functions import GetConnection
-from returns.context import RequiresContext
-from typing_extensions import Protocol
+from typing import Callable, Sequence, Tuple, Optional, Union
 from . import Multilingual
 from .supply import Supply
 from pfun.functions import curry
