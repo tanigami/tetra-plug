@@ -9,7 +9,7 @@ readme = "README.rst"
 repository = "https://github.com/tanigami/tetra-plug"
 
 packages = [
-    { include = "tetra_plug", from = "src"},
+    { include = "tetra_plug" },
 ]
 
 classifiers = [
