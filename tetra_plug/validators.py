@@ -11,7 +11,7 @@ def required(input_, tetra: Supply):
     error = (
         {
             "code": "REQUIRED",
-            "message": {"ja": "この項目は必須", "en": "This field is reuired"},
+            "message": {"ja": "この項目は必須です。", "en": "This field is reuired."},
         }
         if len(input_) == 0
         else None
