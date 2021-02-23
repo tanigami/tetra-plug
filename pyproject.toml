@@ -2,7 +2,7 @@
 name = "tetra_plug"
 version = "0.1.0"
 description = "The Tetra Plug package."
-authors = ["Hirofumi Tanigami <tanigami@gmail.com>"
+authors = ["Hirofumi Tanigami <tanigami@gmail.com>"]
 
 readme = "README.rst"
 
