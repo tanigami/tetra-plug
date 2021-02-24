@@ -1,8 +1,5 @@
-from . import Multilingual, LogLevel
-from .supply import Supply
+from . import Multilingual, LogLevel, Supply
 from typing import Union, Optional, Mapping, Any
-from pfun.functions import curry
-import pytest
 
 
 class TestSupply(Supply):
