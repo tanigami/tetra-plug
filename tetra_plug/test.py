@@ -2,6 +2,10 @@ from . import Multilingual, LogLevel, Supply
 from typing import MutableMapping, Union, Optional, Mapping, Any, Sequence
 
 
+class HaltError(Exception):
+    pass
+
+
 class TestSupply(Supply):
     def __init__(
         self,
@@ -13,7 +17,6 @@ class TestSupply(Supply):
         self.connections = connections if connections is not None else []
         self.testing = testing
         self.logs = []
-        self.halted = False
         self.echo: MutableMapping = {}
 
     def get_input(self, field_key: str):
@@ -42,7 +45,7 @@ class TestSupply(Supply):
 
     def halt(self, message: Union[str, Multilingual]):
         self.logs.append({"level": "ERROR", "message": message})
-        self.halted = True
+        raise HaltError()
 
     def resolve_input(self, field_key: str):
         print(1)

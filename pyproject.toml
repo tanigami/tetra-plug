@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tetra_plug"
-version = "0.1.14"
+version = "0.1.15"
 description = "The Tetra Plug package."
 authors = ["Hirofumi Tanigami <tanigami@gmail.com>"]
 
