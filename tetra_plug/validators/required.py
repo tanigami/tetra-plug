@@ -10,6 +10,8 @@ def message() -> Multilingual:
 
 
 @curry
-def validate(input_: str, tetra: Supply) -> Tuple[Optional[Multilingual], str]:
+def validate(
+    input_: str, tetra: Supply, damup: bool = True
+) -> Tuple[Optional[Multilingual], str, bool]:
     error = message() if len(input_) == 0 else None
-    return error, input_
+    return error, input_, damup

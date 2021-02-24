@@ -11,11 +11,11 @@ def message() -> Multilingual:
 
 @curry
 def validate(
-    input_, options: Union[Sequence, Callable], tetra: Supply
-) -> Tuple[Optional[Multilingual], str]:
+    input_, options: Union[Sequence, Callable], tetra: Supply, damup=True
+) -> Tuple[Optional[Multilingual], str, bool]:
     error = (
         message()
         if input_ not in (options(tetra) if callable(options) else options)
         else None
     )
-    return error, input_
+    return error, input_, damup

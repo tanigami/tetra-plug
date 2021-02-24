@@ -76,6 +76,7 @@ def test_play(spec, play):
 
 @curry
 def emulate_state(tone, fields, tetra: Supply):
+    # tone = tone(tetra=tetra)
     state = {}
     for field in fields(tetra=tetra):
         if "depends_on" in field and not field["depends_on"](state=state):
@@ -89,20 +90,21 @@ def emulate_state(tone, fields, tetra: Supply):
 
 
 def validate(input_, field, tetra, state):
+    if input_ is None:
+        return {"input": input_, "errors": []}
     if field["type"] == "select":
-        field["validators"] = (
-            options.validate(options=field["options"](tetra=tetra), tetra=tetra),
-        )
-
-    if "validators" in field:
-        errors = [
-            error
-            for validator in field["validators"]
-            if (error := validator(input_=input_, tetra=tetra)[0]) is not None
+        field["validators"] = field["validators"] + [
+            options.validate(options=field["options"](tetra=tetra), tetra=tetra)
         ]
-    else:
-        errors = []
 
+    errors = []
+    if "validators" in field:
+        for validator in field["validators"]:
+            error, input_, damup = validator(input_=input_, tetra=tetra)
+            if error is not None:
+                errors.append(error)
+                if damup:
+                    break
     return {
         "input": input_,
         "errors": errors,
