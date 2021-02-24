@@ -3,7 +3,6 @@ import abc
 from typing import Any, Dict, Literal, Mapping, Optional, Sequence, Union
 
 from . import validators
-from .supply import Supply
 
 __author__ = """Hirofumi Tanigami"""
 __email__ = "hirofumi.tanigami@shippinno.co.jp"
