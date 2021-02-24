@@ -76,6 +76,7 @@ def test_play(spec, play):
 
 @curry
 def emulate_state(tone, fields, tetra: Supply):
+    tone = tone(tetra=tetra)
     state = {}
     for field in fields(tetra=tetra):
         if "depends_on" in field and not field["depends_on"](state=state):
