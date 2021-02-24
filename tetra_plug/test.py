@@ -70,7 +70,7 @@ class TestSupply(Supply):
 
 
 def test_play(spec, play):
-    supply = TestSupply(inputs=spec["tone"], testing=spec["testing"])
+    supply = TestSupply(inputs=spec["tone"], testing=spec.get("testing", True))
     play(tetra=supply)
     assert supply.logs == spec["logs"]
     assert supply.halted == spec.get("halted", False)
