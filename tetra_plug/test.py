@@ -72,7 +72,7 @@ def test_play(spec, play):
     assert supply.logs == spec["logs"]
     assert supply.halted == spec.get("halted", False)
     print(supply.echoes)
-    assert supply.echoes == spec["echoes"]
+    assert supply.echoes == spec["echo"]
 
 
 # @curry
