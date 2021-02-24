@@ -2,8 +2,7 @@ from typing import Callable, Mapping, Optional, Sequence, Tuple, Union
 
 from pfun.functions import curry
 
-from . import Multilingual
-from .supply import Supply
+from . import Supply
 
 Result = Tuple[Optional[Mapping], str]
 

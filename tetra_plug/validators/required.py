@@ -2,8 +2,7 @@ from typing import Optional, Tuple
 
 from pfun.functions import curry
 
-from .. import Multilingual
-from ..supply import Supply
+from .. import Multilingual, Supply
 
 
 def message() -> Multilingual:

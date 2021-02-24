@@ -1,9 +1,10 @@
-from typing import TypedDict, Optional
-from datetime import datetime, date
-from os import environ
-from functools import wraps
-from tetra.plug.supply import Supply
 import json
+from datetime import date, datetime
+from functools import wraps
+from os import environ
+from typing import Optional, TypedDict
+
+from . import Supply
 
 
 class OAuth2Credentials(TypedDict):
