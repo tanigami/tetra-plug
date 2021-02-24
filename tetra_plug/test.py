@@ -1,6 +1,8 @@
 from . import Multilingual, LogLevel, Supply
 from typing import MutableMapping, Union, Optional, Mapping, Any, Sequence
 import pytest
+from pfun.functions import curry
+from .validators import options
 
 
 class HaltError(Exception):
@@ -55,22 +57,10 @@ class TestSupply(Supply):
         self.echo[key] = value
 
 
-# def test_note(module):
-#     test_validate(module)
-#     test_play(module)
-
-
-# def test_validate(module):
-#     specs = module.specs.validate
-#     for spec in specs:
-#         supply = TestSupply(inputs=spec["inputs"], connections=spec["connections"])
-#         state = build(inputs=spec["inputs"], fields=module.fields, tetra=supply)
-#         diff = DeepDiff(state, spec["state"])
-#         print(diff)
-#         # print("diff", DeepDiff(state, spec["state"]))
-#         # assert "values_changed" not in diff and "dictionary_item_added" not in diff
-#         assert state == spec["state"]
-#         print(".")
+def test_tone(spec, tone):
+    supply = TestSupply(inputs=spec["tone"], testing=spec.get("testing", True))
+    state = emulate_state(tone=spec["tone"], fields=tone, tetra=supply)
+    assert state == spec["state"]
 
 
 def test_play(spec, play):
@@ -84,69 +74,82 @@ def test_play(spec, play):
     assert supply.echo == spec["echo"]
 
 
-# @curry
-# def build(inputs, fields, tetra: Supply):
-#     from .validators import option, connection
-
-#     # state = OrderedDict()
-#     print("INPUT", inputs)
-#     state = {}
-#     for field in fields():
-#         if "depends_on" in field and not field["depends_on"](state=state):
-#             continue
-#         if field["key"] not in inputs:
-#             inputs[field["key"]] = None
-#         if inputs[field["key"]] is None:
-#             inputs[field["key"]] = field.get("default", None)
-#         state[field["key"]] = validate(inputs[field["key"]], field, tetra, state)
-#     return state
+@curry
+def emulate_state(tone, fields, tetra: Supply):
+    state = {}
+    for field in fields(tetra=tetra):
+        if "depends_on" in field and not field["depends_on"](state=state):
+            continue
+        if field["key"] not in tone:
+            tone[field["key"]] = None
+        if tone[field["key"]] is None:
+            tone[field["key"]] = field.get("default", None)
+        state[field["key"]] = validate(tone[field["key"]], field, tetra, state)
+    return state
 
 
-# def validate(input_, field, tetra, state):
-#     from .validators import option, connection
+def validate(input_, field, tetra, state):
+    if field["type"] == "select":
+        field["validators"] = (
+            options.validate(options=field["options"](tetra=tetra), tetra=tetra),
+        )
 
-#     print("VALIDATE", input_)
-#     if field["type"] == "list":
-#         return {
-#             "fields": {
-#                 key: validate(i, field["item"], tetra, state)
-#                 for key, i in (input_.items() if input_ != [] else {})
-#             }
-#             if input_ is not None
-#             else {},
-#             "errors": [],
-#         }
+    if "validators" in field:
+        errors = [
+            error
+            for validator in field["validators"]
+            if (error := validator(input_=input_, tetra=tetra)[0]) is not None
+        ]
+    else:
+        errors = []
 
-#     if input_ is None:
-#         return {"input": input_, "errors": []}
+    return {
+        "input": input_,
+        "errors": errors,
+    }
 
-#     elif field["type"] == "group":
-#         return {
-#             k: validate(
-#                 v, next(f for f in field["items"] if f["key"] == k), tetra, state
-#             )
-#             for k, v in input_.items()
-#         }
-#     else:
-#         if input_ is not None:
-#             # if field["type"] == "connection":
-#             #     field["validators"] = field["validators"] + [
-#             #         connection(type="google_maps")
-#             #     ]
-#             if field["type"] == "select":
-#                 field["validators"] = (
-#                     option(options=field["options"](tetra=tetra), tetra=tetra),
-#                 )
-#         errors = (
-#             lambda: [
-#                 error
-#                 for validator in field["validators"]
-#                 if (error := validator(input_=input_, tetra=tetra)[0]) is not None
-#             ]
-#             if "validators" in field
-#             else []
-#         )
-#         return {
-#             "input": input_,
-#             "errors": errors,
-#         }
+    # print("VALIDATE", input_)
+    # if field["type"] == "list":
+    #     return {
+    #         "fields": {
+    #             key: validate(i, field["item"], tetra, state)
+    #             for key, i in (input_.items() if input_ != [] else {})
+    #         }
+    #         if input_ is not None
+    #         else {},
+    #         "errors": [],
+    #     }
+
+    # if input_ is None:
+    #     return {"input": input_, "errors": []}
+
+    # elif field["type"] == "group":
+    #     return {
+    #         k: validate(
+    #             v, next(f for f in field["items"] if f["key"] == k), tetra, state
+    #         )
+    #         for k, v in input_.items()
+    #     }
+    # else:
+    #     if input_ is not None:
+    #         # if field["type"] == "connection":
+    #         #     field["validators"] = field["validators"] + [
+    #         #         connection(type="google_maps")
+    #         #     ]
+    #         if field["type"] == "select":
+    #             field["validators"] = (
+    #                 option(options=field["options"](tetra=tetra), tetra=tetra),
+    #             )
+    #     errors = (
+    #         lambda: [
+    #             error
+    #             for validator in field["validators"]
+    #             if (error := validator(input_=input_, tetra=tetra)[0]) is not None
+    #         ]
+    #         if "validators" in field
+    #         else []
+    #     )
+    #     return {
+    #         "input": input_,
+    #         "errors": errors,
+    #     }
