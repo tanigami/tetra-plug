@@ -1,26 +1,8 @@
-from typing import (
-    Callable,
-    Any,
-    Dict,
-    Literal,
-    Mapping,
-    Optional,
-    Sequence,
-    Union,
-)
-
-from pfun.functions import curry
 import abc
+from typing import Any, Mapping, Optional, Sequence, Union
+from . import LogLevel, Multilingual
 
-# from tetra.plug import Connection
 
-ConnectionFieldKey = str
-FieldKey = str
-
-Locale = Literal["ja", "en"]
-
-Multilingual = Dict[Locale, str]
-LogLevel = Literal["DEBUG", "INFO", "WARNING", "ERROR"]
 class Supply(abc.ABC):
     testing = False
 
@@ -56,4 +38,3 @@ class Supply(abc.ABC):
     @abc.abstractmethod
     def echo(self, key: str, value: Any) -> None:
         pass
-

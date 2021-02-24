@@ -1,13 +1,15 @@
-from typing import Callable, Sequence, Tuple, Optional, Union
-from . import Multilingual
-from .supply import Supply
+from typing import Callable, Mapping, Optional, Sequence, Tuple, Union
+
 from pfun.functions import curry
 
-Result = Tuple[Optional[Multilingual], str]
+from . import Multilingual
+from .supply import Supply
+
+Result = Tuple[Optional[Mapping], str]
 
 
 @curry
-def required(input_, tetra: Supply):
+def required(input_: str, tetra: Supply) -> Result:
     error = (
         {
             "code": "REQUIRED",
@@ -20,7 +22,7 @@ def required(input_, tetra: Supply):
 
 
 @curry
-def option(input_, options: Union[Sequence, Callable], tetra: Supply):
+def option(input_, options: Union[Sequence, Callable], tetra: Supply) -> Result:
     error = (
         {
             "code": "REQUIRED",
@@ -33,7 +35,7 @@ def option(input_, options: Union[Sequence, Callable], tetra: Supply):
 
 
 @curry
-def connection(input_: str, type: str, tetra: Supply):
+def connection(input_: str, type: str, tetra: Supply) -> Result:
     error = (
         {
             "code": "CONNECTION_NOT_FOUND",

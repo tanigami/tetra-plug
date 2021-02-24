@@ -15,7 +15,6 @@ from typing import Dict, Literal
 
 
 Locale = Literal["ja", "en"]
-
 Multilingual = Dict[Locale, str]
 LogLevel = Literal["DEBUG", "INFO", "WARNING", "ERROR"]
 

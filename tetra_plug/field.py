@@ -1,4 +1,4 @@
-from typing import  Mapping
+from typing import Mapping
 from pfun.functions import curry
 
 
