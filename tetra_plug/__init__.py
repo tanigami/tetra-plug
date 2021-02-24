@@ -52,5 +52,5 @@ class Supply(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def echo(self, key: str, value: Any) -> None:
+    def leave_echo(self, key: str, value: Any) -> None:
         pass

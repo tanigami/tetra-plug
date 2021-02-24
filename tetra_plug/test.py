@@ -1,16 +1,20 @@
 from . import Multilingual, LogLevel, Supply
-from typing import Union, Optional, Mapping, Any
+from typing import MutableMapping, Union, Optional, Mapping, Any, Sequence
 
 
 class TestSupply(Supply):
-    testing = True
-
-    def __init__(self, inputs, connections=[]):
+    def __init__(
+        self,
+        inputs,
+        connections: Optional[Sequence] = None,
+        testing: Optional[Mapping] = None,
+    ):
         self.inputs = inputs
-        self.connections = connections
+        self.connections = connections if connections is not None else []
+        self.testing = testing
         self.logs = []
         self.halted = False
-        self.echoes = {}
+        self.echo: MutableMapping = {}
 
     def get_input(self, field_key: str):
         return self.inputs[field_key]
@@ -43,8 +47,8 @@ class TestSupply(Supply):
     def resolve_input(self, field_key: str):
         print(1)
 
-    def echo(self, key: str, value: Any) -> None:
-        self.echoes[key] = value
+    def leave_echo(self, key: str, value: Any) -> None:
+        self.echo[key] = value
 
 
 # def test_note(module):
@@ -68,11 +72,9 @@ class TestSupply(Supply):
 def test_play(spec, play):
     supply = TestSupply(inputs=spec["tone"])
     play(tetra=supply)
-    print(supply.logs)
     assert supply.logs == spec["logs"]
     assert supply.halted == spec.get("halted", False)
-    print(supply.echoes)
-    assert supply.echoes == spec["echo"]
+    assert supply.echo == spec["echo"]
 
 
 # @curry
