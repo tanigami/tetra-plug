@@ -7,7 +7,7 @@ class TestSupply(Supply):
         self,
         inputs,
         connections: Optional[Sequence] = None,
-        testing: Optional[Mapping] = None,
+        testing: Optional[Union[Mapping, bool]] = True,
     ):
         self.inputs = inputs
         self.connections = connections if connections is not None else []
@@ -70,7 +70,7 @@ class TestSupply(Supply):
 
 
 def test_play(spec, play):
-    supply = TestSupply(inputs=spec["tone"])
+    supply = TestSupply(inputs=spec["tone"], testing=spec["testing"])
     play(tetra=supply)
     assert supply.logs == spec["logs"]
     assert supply.halted == spec.get("halted", False)
