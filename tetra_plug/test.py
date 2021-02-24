@@ -1,5 +1,6 @@
 from . import Multilingual, LogLevel, Supply
 from typing import MutableMapping, Union, Optional, Mapping, Any, Sequence
+import pytest
 
 
 class HaltError(Exception):
@@ -74,9 +75,12 @@ class TestSupply(Supply):
 
 def test_play(spec, play):
     supply = TestSupply(inputs=spec["tone"], testing=spec.get("testing", True))
-    play(tetra=supply)
+    if spec.get("halted", False):
+        with pytest.raises(HaltError):
+            play(tetra=supply)
+    else:
+        play(tetra=supply)
     assert supply.logs == spec["logs"]
-    assert supply.halted == spec.get("halted", False)
     assert supply.echo == spec["echo"]
 
 
