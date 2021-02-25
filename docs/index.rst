@@ -14,12 +14,12 @@ Welcome to Tetra Plug's documentation!
    history
 
 .. toctree::
-    :maxdepth: 2
-    :numbered:
-    :caption: チュートリアル
+   :maxdepth: 2
+   :numbered:
+   :caption: チュートリアル
 
-    tutorials/dog
-    tutorials/cat
+   tutorials/dog
+   tutorials/cat
 
 Indices and tables
 ==================
