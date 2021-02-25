@@ -10,7 +10,6 @@ Welcome to Tetra Plug's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :numbered:
    :caption: チュートリアル
 
    tutorials/dog

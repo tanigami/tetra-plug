@@ -12,6 +12,7 @@ Dog API からある犬種のランダム画像の URL を取得するノート�
 ノートの作成
 ------
 .. code-block:: 
+
     $ cd notes
     $ cookiecutter https://github.com/shippinno/tetra_plug.git --directory=note
     $ cd get_breed_random
@@ -28,6 +29,7 @@ Tone
 ----
 
 .. code-block:: python
+
     from typing import Sequence
     from tetra_plug import Supply
     from tetra_plug.validators import required
@@ -41,6 +43,7 @@ Tone
 sss
 
 .. code-block:: python
+
     return [
             {
             "key": "breed",
@@ -55,6 +58,7 @@ Echo
 ----
 
 .. code-block:: python
+
     from typing import Mapping
     from tetra_plug import Supply
 
@@ -67,6 +71,7 @@ Echo
 ffff
 
 .. code-block:: python
+
     return {
         "image": {
             "name": {"ja": "画像 URL", "en": "Image URL"},
@@ -78,6 +83,7 @@ Play
 ----
 
 .. code-block:: python
+
     from tetra_plug import Supply
 
     def play(tetra: Supply) -> None:
@@ -90,6 +96,7 @@ Play
 `get_input()` `log()` `halt()`  
 
 .. code-block:: python
+
     def play(tetra: Supply) -> None:
         """Retrieve all the items."""
         breed = tetra.get_input(field_key="breed")
