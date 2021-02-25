@@ -6,6 +6,7 @@ Welcome to Tetra Plug's documentation!
    :caption: Contents:
 
    readme
+   getting_started
    installation
    usage
    modules
