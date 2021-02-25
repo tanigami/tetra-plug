@@ -5,13 +5,8 @@ Welcome to Tetra Plug's documentation!
    :maxdepth: 2
    :caption: Getting Started
 
-   getting_started
-   installation
-   usage
-   modules
-   contributing
-   authors
-   history
+   introduction
+   setup
 
 .. toctree::
    :maxdepth: 2
