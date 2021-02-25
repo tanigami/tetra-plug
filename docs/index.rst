@@ -3,9 +3,8 @@ Welcome to Tetra Plug's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Getting Started
 
-   readme
    getting_started
    installation
    usage
@@ -13,6 +12,14 @@ Welcome to Tetra Plug's documentation!
    contributing
    authors
    history
+
+.. toctree::
+    :maxdepth: 2
+    :numbered:
+    :caption: チュートリアル
+
+    tutorials/dog
+    tutorials/cat
 
 Indices and tables
 ==================
