@@ -11,8 +11,8 @@
 * ノートのテストの基本
 
 
-ノートの仕様を整理する
-----------------------
+どんなノート？
+--------------
 
 これから作るノートの仕様を整理します。
 
@@ -59,17 +59,17 @@ Dog API には画像の取得方法ごとにいくつかのエンドポイント
             {
                 "key": "breed",
                 "type": "select",
-                "label": {"ja": "犬種", "en": "Breed"},
+                "label": "犬種",
                 "options": lambda tetra: {
-                    "shiba": {"ja": "柴", "en": "Shiba"},
-                    "pug": {"ja": "パグ", "en": "Pug"},
-                    "mix": {"ja": "ミックス", "en": "Mix"},
+                    "shiba": "柴",
+                    "pug": "パグ",
+                    "mix": "ミックス",
                 },
                 "validators": [required.validate()],
             },
         ]
 
-できました。トーンのキーは `breed` です。
+こんな感じです。。トーンのキーは `breed` です。
 
 
 エコーの定義
@@ -108,18 +108,12 @@ Dog API には画像の取得方法ごとにいくつかのエンドポイント
 
         if error is not None:
             tetra.halt(
-                message={
-                    "ja": f"エラーが発生しました - {error}",
-                    "en": f"Error - {error}",
-                }
+                message=f"エラーが発生しました - {error}"
             )
 
         tetra.log(
             level="INFO",
-            message={
-                "ja": f"{breed} の画像を取得しました。",
-                "en": f"Found {breed} image.",
-            },
+            message=f"{breed} の画像を取得しました。"
         )
 
         tetra.leave_echo("image", image)
@@ -195,7 +189,7 @@ Dog API には画像の取得方法ごとにいくつかのエンドポイント
             "logs": [
                 {
                     "level": "INFO",
-                    "message": {"ja": "shiba の画像を取得しました。", "en": "Found shiba image."},
+                    "message": "shiba の画像を取得しました。",
                     "context": None,
                 }
             ],
