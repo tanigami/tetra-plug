@@ -11,7 +11,7 @@ endef
 export BROWSER_PYSCRIPT
 
 define PRINT_HELP_PYSCRIPT
-import re, sys
+Timport re, sys
 
 for line in sys.stdin:
 	match = re.match(r'^([a-zA-Z_-]+):.*?## (.*)$$', line)
@@ -19,7 +19,7 @@ for line in sys.stdin:
 		target, help = match.groups()
 		print("%-20s %s" % (target, help))
 endef
-export PRINT_HELP_PYSCRIPT
+export PRINT_HELP_PYSCRIP
 
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
 
