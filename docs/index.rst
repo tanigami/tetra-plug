@@ -1,19 +1,25 @@
-Welcome to Tetra Plug's documentation!
-======================================
+Tetra Plug is sooner or later.
+==============================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1 
    :caption: Getting Started
 
    introduction
    setup
 
 .. toctree::
-   :maxdepth: 2
-   :caption: チュートリアル
+   :maxdepth: 1
+   :caption: Tutorials
 
    tutorials/dog
-   tutorials/cat
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Getting Real
+
+   getting_real/pypi
+
 
 Indices and tables
 ==================
