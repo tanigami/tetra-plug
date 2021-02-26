@@ -42,15 +42,15 @@ Dog API には画像の取得方法ごとにいくつかのエンドポイント
 トーンの定義
 ------------
 
-どこから始めてもよいですが、今回はトーンの定義からやっていきましょう。
-`tone.py` に
+どこから始めてもよいですが、今回はトーンの定義からやっていきます。
+生成された `get_random_dog_image` モジュールの `tone.py` に関数がひとつあります。
 
 .. code-block:: python
 
     def tone(tetra: Supply) -> Sequence:
         return []
 
-この `tone` 関数がトーンの定義を辞書型のリストとして返すようにします。
+この `tone` 関数がトーンの定義を返すようにします。「犬種」をドロップダウンメニューで選べる必要がありました。
 
 .. code-block:: python
 
@@ -68,47 +68,36 @@ Dog API には画像の取得方法ごとにいくつかのエンドポイント
                 "validators": [required.validate()],
             },
         ]
-        
+
+できました。トーンのキーは `breed` です。
+
 
 エコーの定義
-------
+------------
+
+次に、`echo.py` にエコーの定義を書いてみましょう。「画像 URL」を文字列型で扱うエコーをひとつ設定します。
 
 .. code-block:: python
 
     def echo(tetra: Supply) -> Mapping:
         return {
             "image": {
-                "name": {"ja": "画像 URL", "en": "Image URL"},
+                "name": "画像 URL",
                 "type": "string",
             }
         }
 
-
-ffff
-
-.. code-block:: python
-
-    return {
-        "image": {
-            "name": {"ja": "画像 URL", "en": "Image URL"},
-            "type": "string",
-        }
-    }
+よさそうです。エコーのキーは `image` としました。
 
 
 実行処理の実装
--------
+--------------
 
-.. code-block:: python
+いよいよ、`play.py` で実行処理の実装に入ります。
 
-    def play(tetra: Supply) -> None:
-        pass
-  
-
-`[play.py](http://play.py)` に `play()` 関数がつくられてます。ここにノートが行う処理を実装します。
-
-`Supply` 型の引数 `tetra` から、Tetra の機能や値にアクセスできます。
-`get_input()` `log()` `halt()`  
+さきほど定義した `breed` フィールドの入力値を使って Dog API をたたき、返ってきた画像 URL を `image` エコーとして残します。
+`play()` 関数に引数として渡される `tetra` のメソッド `get_input()` と `leave_echo()` を使います。
+エラーが発生した場合は `halt()` メソッドで実行を中止します。
 
 .. code-block:: python
 
@@ -152,9 +141,16 @@ ffff
         else:
             return None, response["message"]
 
+エラーのことも考えると少し複雑になります。
 
-テスト
-----
+実行に必要な実装は以上ですが、テストもしましょう。
+
+
+テストをする
+------------
+
+これまでの実装をテストしますが、`tetra_plug` パッケージにはテストのフレームワークも用意されているので、開発者としてやるべきは `spec.py` での仕様の記述だけです。
+`tone` にはトーンの入力値のパターンとそれに対応して期待されるフィールドエラーの状態を、`play` にはトーンの入力値と、実行して残るはずのエコーやログを記述します。
 
 .. code-block:: python
 
@@ -218,10 +214,7 @@ ffff
             "logs": [
                 {
                     "level": "ERROR",
-                    "message": {
-                        "ja": "エラーが発生しました - Breed not found (master breed does not exist)",
-                        "en": "Error - Breed not found (master breed does not exist)",
-                    },
+                    "message": "エラーが発生しました - Breed not found (master breed does not exist)"
                 }
             ],
             "echo": {},
@@ -236,10 +229,7 @@ ffff
             "logs": [
                 {
                     "level": "ERROR",
-                    "message": {
-                        "ja": "エラーが発生しました - Something's just happened!",
-                        "en": "Error - Something's just happened!",
-                    },
+                    "message": "エラーが発生しました - Something's just happened!"
                 }
             ],
             "echo": {},
@@ -247,3 +237,13 @@ ffff
         },
     ]
 
+仕様の記述が終わったら、テストを実行します。
+
+.. code-block:: bash
+
+    $ make test
+    pytest
+    .......                                                            [100%]
+    7 passed in 0.18s
+
+おめでとうございました。
