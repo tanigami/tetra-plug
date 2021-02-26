@@ -1,5 +1,5 @@
-Tetra Plug is sooner or later.
-==============================
+Tetra Plug is coming soon, or later.
+====================================
 
 .. toctree::
    :maxdepth: 1 
